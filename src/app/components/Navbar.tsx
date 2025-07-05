@@ -1,6 +1,8 @@
 'use client';
+
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react'; // or use Heroicons if preferred
+import Link from 'next/link'; // ✅ Added import
+import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,13 +34,13 @@ export default function Navbar() {
 
         <nav className="hidden md:flex space-x-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               className="text-gray-700 hover:text-blue-600 transition"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </nav>
       </div>
@@ -47,14 +49,14 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden bg-white px-6 pb-4 space-y-4">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               className="block text-gray-700 hover:text-blue-600 transition"
               onClick={() => setIsOpen(false)}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
       )}
