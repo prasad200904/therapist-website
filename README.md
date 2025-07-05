@@ -3,7 +3,7 @@
 A modern, responsive therapist portfolio website built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**, designed as an internship assignment for *Grow My Therapy*. This site showcases the therapist's profile, services, FAQs, and a contact form.
 
 ### 🔗 Live Demo
-[https://therapist-website.vercel.app](https://therapist-website.vercel.app)
+[https://therapist-website.vercel.app](https://therapist-website-xqea.vercel.app/)
 
 ---
 
