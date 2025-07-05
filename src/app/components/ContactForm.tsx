@@ -1,9 +1,19 @@
 'use client';
 
-import { useState } from "react";
+
+import { ChangeEvent, FormEvent, useState } from "react";
+
+interface ContactFormState {
+  name: string;
+  phone: string;
+  email: string;
+  message: string;
+  time: string;
+  agree: boolean;
+}
 
 export default function ContactForm() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<ContactFormState>({
     name: "",
     phone: "",
     email: "",
@@ -12,16 +22,18 @@ export default function ContactForm() {
     agree: false,
   });
 
-  const [errors, setErrors] = useState<any>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value, type, checked } = e.target;
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   };
 
-  const validate = () => {
-    const newErrors: any = {};
+  const validate = (): Record<string, string> => {
+    const newErrors: Record<string, string> = {};
     if (!form.name.trim()) newErrors.name = "Name is required.";
     if (!form.phone.trim()) newErrors.phone = "Phone number is required.";
     if (!form.email.trim()) newErrors.email = "Email is required.";
@@ -31,7 +43,7 @@ export default function ContactForm() {
     return newErrors;
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
@@ -40,7 +52,8 @@ export default function ContactForm() {
       setErrors({});
       setSubmitted(true);
       console.log("Form data:", form);
-      // Reset form after submission (optional)
+
+      // Optional: Reset form after submission
       setForm({
         name: "",
         phone: "",
@@ -75,9 +88,7 @@ export default function ContactForm() {
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg p-3"
               />
-              {errors.name && (
-                <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-              )}
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
             </div>
 
             <div>
@@ -91,9 +102,7 @@ export default function ContactForm() {
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg p-3"
               />
-              {errors.phone && (
-                <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-              )}
+              {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
             </div>
           </div>
 
@@ -108,9 +117,7 @@ export default function ContactForm() {
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg p-3"
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-            )}
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
 
           <div>
@@ -124,9 +131,7 @@ export default function ContactForm() {
               rows={4}
               className="w-full border border-gray-300 rounded-lg p-3"
             />
-            {errors.message && (
-              <p className="text-red-500 text-sm mt-1">{errors.message}</p>
-            )}
+            {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
           </div>
 
           <div>
@@ -140,9 +145,7 @@ export default function ContactForm() {
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg p-3"
             />
-            {errors.time && (
-              <p className="text-red-500 text-sm mt-1">{errors.time}</p>
-            )}
+            {errors.time && <p className="text-red-500 text-sm mt-1">{errors.time}</p>}
           </div>
 
           <div className="flex items-start gap-3">
@@ -153,13 +156,9 @@ export default function ContactForm() {
               onChange={handleChange}
               className="mt-1"
             />
-            <label className="text-gray-700">
-              I agree to be contacted *
-            </label>
+            <label className="text-gray-700">I agree to be contacted *</label>
           </div>
-          {errors.agree && (
-            <p className="text-red-500 text-sm">{errors.agree}</p>
-          )}
+          {errors.agree && <p className="text-red-500 text-sm">{errors.agree}</p>}
 
           <button
             type="submit"
