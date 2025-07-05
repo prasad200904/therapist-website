@@ -21,7 +21,7 @@ export default function ContactForm() {
     agree: false,
   });
 
-  const [errors, setErrors] = useState<Partial<ContactFormState>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormState, string>>>({});
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (
@@ -29,14 +29,15 @@ export default function ContactForm() {
   ): void => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
-    setForm({
-      ...form,
+
+    setForm((prev) => ({
+      ...prev,
       [name]: type === 'checkbox' ? checked : value,
-    });
+    }));
   };
 
-  const validate = (): Partial<ContactFormState> => {
-    const newErrors: Partial<ContactFormState> = {};
+  const validate = (): Partial<Record<keyof ContactFormState, string>> => {
+    const newErrors: Partial<Record<keyof ContactFormState, string>> = {};
     if (!form.name.trim()) newErrors.name = 'Name is required.';
     if (!form.phone.trim()) newErrors.phone = 'Phone number is required.';
     if (!form.email.trim()) newErrors.email = 'Email is required.';
@@ -56,7 +57,6 @@ export default function ContactForm() {
       setSubmitted(true);
       console.log('Form data:', form);
 
-      // Reset form
       setForm({
         name: '',
         phone: '',
