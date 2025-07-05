@@ -26,14 +26,14 @@ export default function ContactForm() {
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void => {
+  ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
 
-    setForm((prev) => ({
-      ...prev,
+    setForm({
+      ...form,
       [name]: type === 'checkbox' ? checked : value,
-    }));
+    });
   };
 
   const validate = (): Partial<Record<keyof ContactFormState, string>> => {
@@ -47,7 +47,7 @@ export default function ContactForm() {
     return newErrors;
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
@@ -55,8 +55,9 @@ export default function ContactForm() {
     } else {
       setErrors({});
       setSubmitted(true);
-      console.log('Form data:', form);
+      console.log('Form submitted:', form);
 
+      // Reset form
       setForm({
         name: '',
         phone: '',

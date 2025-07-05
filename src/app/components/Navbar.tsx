@@ -18,8 +18,8 @@ export default function Navbar() {
   return (
     <header className="bg-white shadow-md fixed top-0 w-full z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link href="/">
-          <span className="text-xl font-bold text-gray-800">Serena Blake</span>
+        <Link href="/" className="text-xl font-bold text-gray-800">
+          Serena Blake
         </Link>
 
         <div className="md:hidden">
@@ -34,10 +34,12 @@ export default function Navbar() {
 
         <nav className="hidden md:flex space-x-8">
           {navLinks.map((link) => (
-            <Link key={link.name} href={link.href}>
-              <span className="text-gray-700 hover:text-blue-600 transition">
-                {link.name}
-              </span>
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-gray-700 hover:text-blue-600 transition"
+            >
+              {link.name}
             </Link>
           ))}
         </nav>
@@ -47,10 +49,13 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden bg-white px-6 pb-4 space-y-4">
           {navLinks.map((link) => (
-            <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)}>
-              <span className="block text-gray-700 hover:text-blue-600 transition">
-                {link.name}
-              </span>
+            <Link
+              key={link.name}
+              href={link.href}
+              className="block text-gray-700 hover:text-blue-600 transition"
+              onClick={() => setIsOpen(false)}
+            >
+              {link.name}
             </Link>
           ))}
         </div>
