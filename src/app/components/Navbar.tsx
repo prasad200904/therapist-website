@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { Menu, X } from 'lucide-react'; // or use Heroicons if preferred
 
 export default function Navbar() {
