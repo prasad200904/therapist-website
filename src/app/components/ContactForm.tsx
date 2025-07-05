@@ -1,6 +1,4 @@
 'use client';
-
-
 import { ChangeEvent, FormEvent, useState } from "react";
 
 interface ContactFormState {
