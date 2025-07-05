@@ -1,19 +1,65 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
+import { Menu, X } from 'lucide-react'; // or use Heroicons if preferred
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '#about' },
+    { name: 'Services', href: '#services' },
+    { name: 'FAQ', href: '#faq' },
+    { name: 'Contact', href: '#contact' },
+  ];
+
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow z-50">
+    <header className="bg-white shadow-md fixed top-0 w-full z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <span className="font-bold text-lg text-gray-900">Dr. Serena Blake</span>
-        <div className="space-x-6 text-sm font-medium text-gray-700">
-          <a href="#about" className="hover:text-blue-600">About</a>
-          <a href="#services" className="hover:text-blue-600">Services</a>
-          <a href="#faq" className="hover:text-blue-600">FAQ</a>
-          <a href="#contact" className="hover:text-blue-600">Contact</a>
+        <Link href="/" className="text-xl font-bold text-gray-800">
+          Serena Blake
+        </Link>
+
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-gray-700 focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
+
+        <nav className="hidden md:flex space-x-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="text-gray-700 hover:text-blue-600 transition"
+            >
+              {link.name}
+            </a>
+          ))}
+        </nav>
       </div>
-    </nav>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-white px-6 pb-4 space-y-4">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="block text-gray-700 hover:text-blue-600 transition"
+              onClick={() => setIsOpen(false)}
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+      )}
+    </header>
   );
 }
